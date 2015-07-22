@@ -1,3 +1,5 @@
+{-# LANGUAGE ViewPatterns #-}
+
 firstOrEmpty :: [[Char]] -> [Char]
 firstOrEmpty lst = if not (null lst) then head lst else "empty"
 
@@ -52,8 +54,8 @@ fbi = GovOrg "FBI"
 zuno  = Company "Zuno" 2973289 eddie "Future Interactions Strategist"
 booz  = Company "Booz Allen" 12039 jamie "Consoltant"
 dood  = Individual shadi False
-
-companies = [fbi, zuno, booz, dood]
+stl   = Company "STL Tribe" 12321 shadi "Director"
+companies = [fbi, zuno, booz, dood, stl]
 
 tm1 = TimeMachine "Apple" 32 "iTime" True False 100
 tm2 = TimeMachine "Apple" 35 "iTime 2" True False 200
@@ -95,3 +97,26 @@ discount rate (TimeMachine comp model name past future p)  = TimeMachine comp mo
 
 timeMachineDiscount :: [TimeMachine] -> Float -> [TimeMachine]
 timeMachineDiscount xs rate = map (discount rate) machines
+
+-- Exercise 2-6
+-- ackermann :: m -> n -> Int
+ackermann :: Int -> Int -> Int
+ackermann m n
+  | m == 0          = n + 1
+  | n == 0 && m > 0 = ackermann (m - 1) 1
+  | n > 0 && m > 0  = ackermann (m - 1) (ackermann m (n - 1))
+
+unzip2 :: [(a,b)] -> ([a],[b])
+unzip2 []           = ([],[])
+unzip2 (x@(a,b):xs) = ( a : unzippedA , b : unzippedB ) where
+  (unzippedA, unzippedB) = unzip2 xs
+
+
+responsibility :: Client -> String
+responsibility (Company _ _ _ r) = r
+responsibility _                 = "Unknown"
+
+specialClient :: Client -> Bool
+specialClient ( clientName -> "Mr. Alejandro") = True
+specialClient ( responsibility -> "Director")  = True
+specialClient _                               = False
