@@ -1,4 +1,6 @@
 {-# LANGUAGE ViewPatterns #-}
+--{-# LANGUAGE RecordPuns #-}
+{-# LANGUAGE RecordWildCards #-}
 
 firstOrEmpty :: [[Char]] -> [Char]
 firstOrEmpty lst = if not (null lst) then head lst else "empty"
@@ -28,6 +30,7 @@ data Client = GovOrg     String
             deriving(Show)
 -}
 
+-- V2
 data Client = GovOrg String
             | Company String Integer Person String
             | Individual Person Bool
@@ -120,3 +123,56 @@ specialClient :: Client -> Bool
 specialClient ( clientName -> "Mr. Alejandro") = True
 specialClient ( responsibility -> "Director")  = True
 specialClient _                               = False
+
+-- Records
+-- V3
+
+-- V2
+data ClientR = GovOrgR { clientRName :: String }
+            | CompanyR { clientRName :: String,
+                        companyID :: Integer,
+                        person :: PersonR,
+                        duty :: String}
+            | IndividualR {person :: PersonR, ads :: Bool }
+            deriving(Show)
+
+data PersonR = PersonR {  firstName :: String,
+                        lastName :: String,
+                        gender :: Gender }
+                        deriving(Show)
+{--
+Time machines are defined by its
+manufacturer, its model (which is an integer),
+its name,
+whether they can travel to the past
+and to the future
+and a price (which can be represented as a floating-point number).
+--}
+data TimeMachineR = TimeMachineR {  manufacturer :: String,
+                                    model :: Integer,
+                                    name :: String,
+                                    past :: Bool,
+                                    future :: Bool,
+                                    price :: Float }
+                                    deriving(Show, Read)
+
+
+john = PersonR { firstName = "John", lastName = "Smith", gender = Male}
+johnClient = IndividualR {person = john, ads = False}
+nato = GovOrgR { clientRName = "NATO"}
+hyundai = CompanyR { clientRName = "Hyundai", companyID = 12321, person = PersonR {firstName="wierd", lastName="guy", gender = Male}, duty= "reception"}
+
+-- greet :: ClientR -> String
+-- greet IndividualR { person = PersonR { firstName = fn } } = "Hi, " ++ fn
+-- greet CompanyR    { clientRName = c }                     = "Hello, " ++ c
+-- greet GovOrgR     { }                                     = "Welcome"
+
+-- using RecordPuns
+-- greet IndividualR { person = PersonR { firstName } } = "Hi, " ++ firstName
+-- greet CompanyR    { clientRName }                    = "Hello, " ++ clientRName
+-- greet GovOrgR     { }                                = "Welcome"
+
+--using RecordWildCards
+greet IndividualR { person = PersonR {..} } = "Hi, " ++ firstName
+greet CompanyR {..}                       = "Hello, " ++ clientRName
+greet GovOrgR {}                          = "Welcome"
