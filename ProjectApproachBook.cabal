@@ -16,7 +16,8 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules: Chapter2.Section2.Example
+  exposed-modules:  Chapter2.Section2.Example
+                    -- Chapter3.ParamPoly.excercise
   -- other-modules:
   -- other-extensions:
   build-depends:       base >=4.7 && <4.8

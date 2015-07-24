@@ -155,7 +155,9 @@ data TimeMachineR = TimeMachineR {  manufacturer :: String,
                                     future :: Bool,
                                     price :: Float }
                                     deriving(Show, Read)
-
+-- "Apple" 32 "iTime" True False 100
+-- tmR1 = TimeMachine { manufacturer="Apple", model=32, name="iTime", past= True, future=False, price=100}
+tmr1 = TimeMachineR {manufacturer = "Apple", model = 32, name = "iTime", past = True, future = False, price = 100.0}
 
 john = PersonR { firstName = "John", lastName = "Smith", gender = Male}
 johnClient = IndividualR {person = john, ads = False}
@@ -176,3 +178,7 @@ hyundai = CompanyR { clientRName = "Hyundai", companyID = 12321, person = Person
 greet IndividualR { person = PersonR {..} } = "Hi, " ++ firstName
 greet CompanyR {..}                       = "Hello, " ++ clientRName
 greet GovOrgR {}                          = "Welcome"
+
+-- Exercise 2-7
+updatePrice :: TimeMachineR -> Float -> TimeMachineR
+updatePrice tm@TimeMachineR{..} rate = tm { price = price * rate}
