@@ -1,4 +1,8 @@
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE RecordWildCards #-}
+
+import Chapter2.SimpleFunctions
+
 swapTriple :: (a,b,c) -> (b,c,a)
 swapTriple (x,y,z) = (y,z,x)
 
@@ -46,3 +50,17 @@ filterANumber n xs = filter (\x -> x == n) xs
 
 filterNot :: (a -> Bool) -> [a] -> [a]
 filterNot f xs = filter (not . f) xs
+
+
+filterGovOrgs :: [ClientR] -> [ClientR]
+filterGovOrgs xs = filter (\case
+  GovOrgR {..} -> True
+  otherwise  -> False) xs
+
+
+john = PersonR { firstName = "John", lastName = "Smith", gender = Male}
+johnClient = IndividualR {person = john, ads = False}
+nato = GovOrgR { clientRName = "NATO"}
+hyundai = CompanyR { clientRName = "Hyundai", companyID = 12321, person = PersonR {firstName="wierd", lastName="guy", gender = Male}, duty= "reception"}
+
+companies = [johnClient, nato, hyundai]

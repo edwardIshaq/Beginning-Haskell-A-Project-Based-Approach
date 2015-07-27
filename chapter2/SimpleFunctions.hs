@@ -2,6 +2,10 @@
 --{-# LANGUAGE RecordPuns #-}
 {-# LANGUAGE RecordWildCards #-}
 
+module Chapter2.SimpleFunctions
+    (ClientR(..), Gender(..), PersonR(..), TimeMachineR(..)
+    ) where
+
 firstOrEmpty :: [[Char]] -> [Char]
 firstOrEmpty lst = if not (null lst) then head lst else "empty"
 
