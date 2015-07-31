@@ -3,7 +3,11 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module Chapter2.SimpleFunctions
-    (ClientR(..), Gender(..), PersonR(..), TimeMachineR(..)
+    (
+      ClientR(..),
+      Gender(..),
+      PersonR(..),
+      TimeMachineR(..)
     ) where
 
 firstOrEmpty :: [[Char]] -> [Char]

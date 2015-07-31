@@ -57,6 +57,9 @@ filterGovOrgs xs = filter (\case
   GovOrgR {..} -> True
   otherwise  -> False) xs
 
+isGovOrg :: ClientR -> Bool
+isGovOrg GovOrgR {..} = True
+isGovOrg _            = False
 
 john = PersonR { firstName = "John", lastName = "Smith", gender = Male}
 johnClient = IndividualR {person = john, ads = False}
