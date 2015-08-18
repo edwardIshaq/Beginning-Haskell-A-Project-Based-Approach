@@ -47,7 +47,7 @@ elem' x xs = let res = find (\y -> y == x ) xs in
     --  data Client i = GovOrg  { clientId :: i , clientName :: String }
     --                | Company { clientId :: i , clientName :: String
     --                           , person :: Person, duty :: String }
-    --                | Individual { clientId :: i , person :: Person }
+    --                | Individual { clientId :: i , person :: Person }x
     --                deriving Show
     --
     --  data Person = Person { firstName :: String, lastName  :: String }
